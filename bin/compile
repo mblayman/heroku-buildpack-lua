@@ -56,7 +56,7 @@ source "$LUA_PROFILE"
 
 # Include a convenient symlink so that lua can be called
 # without the version number.
-cd "$HOME/.apt/usr/bin"
+cd "$BUILD_DIR/.apt/usr/bin"
 ln -s "$LUA" lua
 cd -
 
