@@ -41,6 +41,7 @@ do
   dpkg -x "$DEB" "$BUILD_DIR/.apt/"
 done
 
+mkdir -p "$BUILD_DIR/.profile.d"
 LUA_PROFILE="$BUILD_DIR/.profile.d/000_lua.sh"
 cat <<EOF >"$LUA_PROFILE"
 export PATH="\$HOME/.apt/usr/bin:\$PATH"
