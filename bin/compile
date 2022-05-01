@@ -5,7 +5,7 @@ set -euo pipefail
 # https://devcenter.heroku.com/articles/buildpack-api#bin-compile
 
 # BUILD_DIR=$1
-# CACHE_DIR=$2
+CACHE_DIR=$2
 # ENV_DIR=$3
 
 function step {
@@ -21,10 +21,16 @@ function indent() {
 }
 
 step "Update apt"
-apt-get update | indent
+
+APT_CACHE_DIR="$CACHE_DIR/apt/cache"
+mkdir -p "$APT_CACHE_DIR"
+APT_STATE_DIR="$CACHE_DIR/apt/state"
+mkdir -p "$APT_STATE_DIR"
+APT_OPTIONS=(-o "dir::cache=$APT_CACHE_DIR" -o "dir::state=$APT_STATE_DIR")
+apt-get "${APT_OPTIONS[@]}" update | indent
 
 step "Install Lua"
 # TODO: Actually install LuaRocks
-apt-get -y install lua5.3
+apt-get "${APT_OPTIONS[@]}" -y install lua5.3
 
 exit 0
