@@ -1,7 +1,15 @@
 #!/bin/bash
 
-set -euxo pipefail
+set -euo pipefail
 
 # https://devcenter.heroku.com/articles/buildpack-api#bin-detect
 
-# TODO: check for rockspec and proceed if found.
+BUILD_DIR=$1
+
+if test -n "$(find "$BUILD_DIR" -maxdepth 1 -name '*.rockspec' -print -quit)"
+then
+    echo "Lua"
+    exit 0
+fi
+
+exit 1
