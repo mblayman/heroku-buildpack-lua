@@ -58,6 +58,6 @@ source "$LUA_PROFILE"
 # without the version number.
 cd "$BUILD_DIR/.apt/usr/bin"
 ln -s "$LUA" lua
-cd -
+cd - > /dev/null
 
 exit 0
