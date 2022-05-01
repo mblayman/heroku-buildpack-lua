@@ -29,9 +29,9 @@ mkdir -p "$APT_STATE_DIR"
 APT_OPTIONS=(-o debug::nolocking=true -o "dir::cache=$APT_CACHE_DIR" -o "dir::state=$APT_STATE_DIR")
 apt-get "${APT_OPTIONS[@]}" update | indent
 
-step "Install Lua"
-# TODO: Actually install LuaRocks
-apt-get "${APT_OPTIONS[@]}" -y -d install lua5.3 | indent
+step "Install Lua and LuaRocks"
+LUA=lua5.3
+apt-get "${APT_OPTIONS[@]}" -y -d install "$LUA" luarocks | indent
 
 mkdir -p "$BUILD_DIR/.apt"
 
@@ -40,5 +40,13 @@ do
   [[ -e "$DEB" ]] || break
   dpkg -x "$DEB" "$BUILD_DIR/.apt/"
 done
+
+LUA_PROFILE="$BUILD_DIR/.profile.d/000_lua.sh"
+cat <<EOF >"$LUA_PROFILE"
+export PATH="\$HOME/.apt/usr/bin:\$PATH"
+EOF
+
+# shellcheck source=/dev/null
+source "$LUA_PROFILE"
 
 exit 0
