@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# https://devcenter.heroku.com/articles/buildpack-api#bin-release
+
+cat << EOF
+---
+addons: []
+default_process_types:
+  web: lua -e "print('change me')"
+EOF
