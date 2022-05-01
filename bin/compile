@@ -31,6 +31,6 @@ apt-get "${APT_OPTIONS[@]}" update | indent
 
 step "Install Lua"
 # TODO: Actually install LuaRocks
-apt-get "${APT_OPTIONS[@]}" -y install lua5.3 | indent
+apt-get "${APT_OPTIONS[@]}" -y -d install lua5.3 | indent
 
 exit 0
