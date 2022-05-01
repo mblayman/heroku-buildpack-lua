@@ -33,4 +33,12 @@ step "Install Lua"
 # TODO: Actually install LuaRocks
 apt-get "${APT_OPTIONS[@]}" -y -d install lua5.3 | indent
 
+mkdir -p "$BUILD_DIR/.apt"
+
+for DEB in "$APT_CACHE_DIR"/archives/*.deb
+do
+  [[ -e "$DEB" ]] || break
+  dpkg -x "$DEB" "$BUILD_DIR/.apt/"
+done
+
 exit 0
