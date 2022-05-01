@@ -30,7 +30,10 @@ APT_OPTIONS=(-o debug::nolocking=true -o "dir::cache=$APT_CACHE_DIR" -o "dir::st
 apt-get "${APT_OPTIONS[@]}" update | indent
 
 step "Install Lua and LuaRocks"
+
 LUA=lua5.3
+
+# Download and "install" packages into .apt.
 apt-get "${APT_OPTIONS[@]}" -y -d install "$LUA" luarocks | indent
 
 mkdir -p "$BUILD_DIR/.apt"
@@ -41,6 +44,7 @@ do
   dpkg -x "$DEB" "$BUILD_DIR/.apt/"
 done
 
+# Make a profile so that Lua is available at startup.
 mkdir -p "$BUILD_DIR/.profile.d"
 LUA_PROFILE="$BUILD_DIR/.profile.d/000_lua.sh"
 cat <<EOF >"$LUA_PROFILE"
@@ -49,5 +53,9 @@ EOF
 
 # shellcheck source=/dev/null
 source "$LUA_PROFILE"
+
+# Include a convenient symlink so that lua can be called
+# without the version number.
+ln -s "$HOME/.apt/usr/bin/$LUA" "$HOME/.apt/usr/bin/lua"
 
 exit 0
