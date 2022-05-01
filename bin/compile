@@ -4,7 +4,7 @@ set -euo pipefail
 
 # https://devcenter.heroku.com/articles/buildpack-api#bin-compile
 
-# BUILD_DIR=$1
+BUILD_DIR=$1
 CACHE_DIR=$2
 # ENV_DIR=$3
 
