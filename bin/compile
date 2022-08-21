@@ -49,7 +49,8 @@ done
 # so add the apt bin directory to the PATH.
 # Sourcing the LUA_PROFILE won't work because the compile script works
 # with BUILD_DIR while the profile expects HOME.
-APT_BIN="$BUILD_DIR/.apt/usr/bin"
+APT_USR="$BUILD_DIR/.apt/usr"
+APT_BIN="$APT_USR/bin"
 export PATH="$APT_BIN:$PATH"
 
 cd "$APT_BIN"
@@ -72,9 +73,14 @@ cd - > /dev/null
 export LUA_PATH="$BUILD_DIR/.apt/usr/share/lua/$VERSION/?.lua;.apt/usr/share/lua/$VERSION/?/init.lua;;"
 export LUA_CPATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/lua/$VERSION/?.so;;"
 
+# Luarocks needs additional configuration to find Lua.
+LUAROCKS_DIR="$BUILD_DIR/.luarocks"
+mkdir "$LUAROCKS_DIR"
+luarocks config --local lua_dir "$APT_USR"
+
 step "Install packages"
 
-TREE_DIR="$BUILD_DIR/.luarocks"
+TREE_DIR="$LUAROCKS_DIR"
 "$BUILD_DIR/.apt/usr/bin/luarocks" --tree "$TREE_DIR" make
 
 # TODO: Include tree in Lua paths.
