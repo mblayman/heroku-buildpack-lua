@@ -58,10 +58,20 @@ EOF
 APT_BIN="$BUILD_DIR/.apt/usr/bin"
 export PATH="$APT_BIN:$PATH"
 
+cd "$APT_BIN"
+
 # Include a convenient symlink so that lua can be called
 # without the version number.
-cd "$APT_BIN"
 ln -s "$LUA" lua
+
+# lua-any assumes that the root is in /usr/bin instead
+# of the locally installed apt bin directory.
+# Because of this behavior, it fails to find the Lua interpreter.
+# This buildpack supports a single Lua version,
+# so replace lua-any with the specific interpreter.
+rm lua-any
+ln -s "$LUA" lua-any
+
 cd - > /dev/null
 
 step "Install packages"
