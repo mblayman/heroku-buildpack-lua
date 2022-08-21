@@ -74,13 +74,11 @@ export LUA_PATH="$BUILD_DIR/.apt/usr/share/lua/$VERSION/?.lua;.apt/usr/share/lua
 export LUA_CPATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/lua/$VERSION/?.so;;"
 
 # Luarocks needs additional configuration to find Lua.
-LUAROCKS_DIR="$BUILD_DIR/.luarocks"
-mkdir "$LUAROCKS_DIR"
-luarocks config --local lua_dir "$APT_USR"
+luarocks config lua_dir "$APT_USR"
 
 step "Install packages"
 
-TREE_DIR="$LUAROCKS_DIR"
+TREE_DIR="$BUILD_DIR/.luarocks"
 "$BUILD_DIR/.apt/usr/bin/luarocks" --tree "$TREE_DIR" make
 
 # TODO: Include tree in Lua paths.
