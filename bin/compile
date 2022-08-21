@@ -20,6 +20,9 @@ function indent() {
   esac
 }
 
+VERSION="5.4"
+LUA="lua$VERSION"
+
 step "Update apt"
 
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
@@ -30,8 +33,6 @@ APT_OPTIONS=(-o debug::nolocking=true -o "dir::cache=$APT_CACHE_DIR" -o "dir::st
 apt-get "${APT_OPTIONS[@]}" update | indent
 
 step "Install Lua and LuaRocks"
-
-LUA=lua5.4
 
 # Download and "install" packages into .apt.
 apt-get "${APT_OPTIONS[@]}" -y -d install "$LUA" luarocks | indent
@@ -73,6 +74,10 @@ rm lua-any
 ln -s "$LUA" lua-any
 
 cd - > /dev/null
+
+# Configure Lua and Luarocks to find files in .apt.
+export LUA_PATH=".apt/usr/share/lua/$VERSION/?.lua;.apt/usr/share/lua/$VERSION/?/init.lua;;"
+export LUA_CPATH=".apt/usr/lib/x86_64-linux-gnu/lua/$VERSION/?.so;;"
 
 step "Install packages"
 
