@@ -51,12 +51,16 @@ cat <<EOF >"$LUA_PROFILE"
 export PATH="\$HOME/.apt/usr/bin:\$PATH"
 EOF
 
-# shellcheck source=/dev/null
-source "$LUA_PROFILE"
+# The rest of the compile process needs what was just installed,
+# so add the apt bin directory to the PATH.
+# Sourcing the LUA_PROFILE won't work because the compile script works
+# with BUILD_DIR while the profile expects HOME.
+APT_BIN="$BUILD_DIR/.apt/usr/bin"
+export PATH="$APT_BIN:$PATH"
 
 # Include a convenient symlink so that lua can be called
 # without the version number.
-cd "$BUILD_DIR/.apt/usr/bin"
+cd "$APT_BIN"
 ln -s "$LUA" lua
 cd - > /dev/null
 
