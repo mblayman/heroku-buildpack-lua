@@ -74,8 +74,8 @@ export LUA_CPATH=".apt/usr/lib/x86_64-linux-gnu/lua/$VERSION/?.so;;"
 
 step "Install packages"
 
-# TREE_DIR="$BUILD_DIR/.luarocks"
-# "$BUILD_DIR/.apt/usr/bin/luarocks" --tree "$TREE_DIR" make
+TREE_DIR="$BUILD_DIR/.luarocks"
+"$BUILD_DIR/.apt/usr/bin/luarocks" --tree "$TREE_DIR" make
 
 # TODO: Include tree in Lua paths.
 # TODO: Include tree bin in PATH.
