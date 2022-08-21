@@ -60,4 +60,12 @@ cd "$BUILD_DIR/.apt/usr/bin"
 ln -s "$LUA" lua
 cd - > /dev/null
 
+step "Install packages"
+
+TREE_DIR="$BUILD_DIR/.luarocks"
+"$BUILD_DIR/.apt/usr/bin/luarocks" --tree "$TREE_DIR" make
+
+# TODO: Include tree in Lua paths.
+# TODO: Include tree bin in PATH.
+
 exit 0
