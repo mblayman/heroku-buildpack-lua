@@ -69,8 +69,8 @@ ln -s "$LUA" lua-any
 cd - > /dev/null
 
 # Configure Lua and Luarocks to find files in .apt.
-export LUA_PATH=".apt/usr/share/lua/$VERSION/?.lua;.apt/usr/share/lua/$VERSION/?/init.lua;;"
-export LUA_CPATH=".apt/usr/lib/x86_64-linux-gnu/lua/$VERSION/?.so;;"
+export LUA_PATH="$BUILD_DIR/.apt/usr/share/lua/$VERSION/?.lua;.apt/usr/share/lua/$VERSION/?/init.lua;;"
+export LUA_CPATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/lua/$VERSION/?.so;;"
 
 step "Install packages"
 
