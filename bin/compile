@@ -79,7 +79,7 @@ luarocks config --scope system lua_dir "$APT_USR"
 
 step "Install packages"
 
-rockspecs=( "$BUILD_DIR/*.rockspec" )
+rockspecs=( "$BUILD_DIR"/*.rockspec )
 TREE_DIR="$BUILD_DIR/.luarocks"
 "$BUILD_DIR/.apt/usr/bin/luarocks" --tree "$TREE_DIR" make "${rockspecs[0]}"
 
