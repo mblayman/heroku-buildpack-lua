@@ -35,7 +35,10 @@ apt-get "${APT_OPTIONS[@]}" update | indent
 step "Install Lua and LuaRocks"
 
 # Download and "install" packages into .apt.
-apt-get "${APT_OPTIONS[@]}" -y -d install "$LUA" luarocks | indent
+apt-get "${APT_OPTIONS[@]}" -y -d install \
+    "$LUA" \
+    "lib$LUA-dev" \
+    luarocks | indent
 
 mkdir -p "$BUILD_DIR/.apt"
 
