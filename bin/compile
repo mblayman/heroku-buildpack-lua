@@ -38,6 +38,7 @@ step "Install Lua and LuaRocks"
 apt-get "${APT_OPTIONS[@]}" -y -d install \
     "$LUA" \
     "lib$LUA-dev" \
+    "lua-sec" \
     luarocks | indent
 
 mkdir -p "$BUILD_DIR/.apt"
