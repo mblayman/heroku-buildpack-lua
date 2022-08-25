@@ -1,3 +1,8 @@
+Heroku has decided to end their free app tier.
+I'm not going to make a buildpack for them for free
+if there is no onramp for hobbyists to get going.
+[Heroku blog announcing end of free tier](https://blog.heroku.com/next-chapter)
+
 # heroku-buildpack-lua
 
 A Heroku buildpack for Lua
